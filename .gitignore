@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+.VENV/
+
+# VSCode / PyCharm project files
+.vscode/
+.idea/
+
+# Python environment files
+*.env
+*.env.*
+*.venv
+*.egg-info/
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Logs / temporary files
+*.log
+*.tmp
+
+# Compiled C files
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Migrations (optional)
+**/migrations/
+
+# Cache and test
+.cache/
+.pytest_cache/
+htmlcov/
+coverage.xml
+
