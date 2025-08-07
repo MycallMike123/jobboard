@@ -14,7 +14,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Portfolio</th>
-                    <th scope="col">CV</th>
+                    <th scope="col">Resume</th>
                     <th scope="col">Status</th>
                     <th scope="col">View Advert</th>
                     <th scope="col">Date Applied</th>
@@ -35,7 +35,7 @@
                         </td>
                         <td>{{ application.status }}</td>
                         <td>
-                            <a href="" target="_blank">
+                            <a href="{% url 'get_advert' application.job_advert.id %}" target="_blank">
                                 View
                             </a>
                         </td>

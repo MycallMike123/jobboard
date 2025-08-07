@@ -44,6 +44,6 @@ class JobApplicationForm(ModelForm):
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Your Name", "class": "form-control"}),
             "email": forms.EmailInput(attrs={"placeholder": "Your Email", "class": "form-control"}),
-            "portfolio_url": forms.URLInput(attrs={"placeholder": "Portfolio URL (optional)", "class": "form-control"}),
+            "portfolio_url": forms.URLInput(attrs={"placeholder": "Portfolio URL (optional)", "class": "form-control"},),
             "resume": forms.FileInput(attrs={"placeholder": "Upload your resume", "class": "form-control", "accept": ".pdf,.doc,.docx"}),
         }

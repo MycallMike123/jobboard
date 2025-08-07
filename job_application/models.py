@@ -1,4 +1,6 @@
+from time import timezone
 from django.db import models
+from django.utils import timezone
 from common.models import BaseModel
 from accounts.models import User
 from job_application.enums import EmploymentType, ExperienceLevel, LocationType, ApplicationStatus

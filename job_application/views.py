@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from accounts.models import User
+from job_application.enums import ApplicationStatus
 from job_application.forms import JobAdvertForm, JobApplicationForm
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from job_application.models import JobAdvert, JobApplication
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
+from django.db.models import Q
+from common.tasks import send_verification_email
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -142,3 +145,77 @@ def my_jobs(request: HttpRequest):
         "current_date": timezone.now().date(),
     }
     return render(request, "my_jobs.html", context)
+
+@login_required
+def advert_applications(request: HttpRequest, advert_id: int):
+    Advert: JobAdvert = get_object_or_404(JobAdvert, pk=advert_id)
+    if request.user != Advert.created_by:
+        return HttpResponseForbidden("You do not have permission to view these applications.")
+
+    applications = Advert.applications.all()
+    # applications = JobApplication.objects.filter(job_advert=Advert.id)
+    paginator = Paginator(applications, 10)  # Show 10 applications per page
+    requested_page = request.GET.get('page')
+    paginated_applications = paginator.get_page(requested_page)
+
+    context = {
+        "job_advert": Advert,
+        "applications": paginated_applications,
+    }
+    return render(request, "advert_applications.html", context)
+
+@login_required
+def decide(request: HttpRequest, application_id: int):
+    application: JobApplication = get_object_or_404(JobApplication, pk=application_id)
+    if request.user != application.job_advert.created_by:
+        return HttpResponseForbidden("You do not have permission to change the status of this application.")
+    if request.method == "POST":
+        status = request.POST.get("status")
+        application.status = status
+        application.save(update_fields=['status'])
+        messages.success(request, f"Application status updated successfully to {status}.")
+
+        # Send email notification
+        if status == ApplicationStatus.REJECTED:
+            context = {
+                "applicant_name": application.name,
+                "job_title": application.job_advert.title,
+                "company_name": application.job_advert.company_name,
+            }
+            send_verification_email(
+                f"Application outcome for {application.job_advert.title}",
+                [application.email],
+                "emails/job_application_update.html",
+                context
+            )
+        return redirect('advert_applications', advert_id=application.job_advert.id)
+    
+
+def search(request: HttpRequest):
+    keyword = request.GET.get("keyword")
+    location = request.GET.get("location")
+
+    query = Q()
+    
+    if keyword:
+        query &= (
+            Q(title__icontains=keyword)
+             | Q(description__icontains=keyword)
+             | Q(company_name__icontains=keyword)
+             | Q(skills__icontains=keyword)
+        )
+
+    if location:
+        query &= Q(location__icontains=location)
+
+    active_adverts = JobAdvert.objects.filter(is_published=True, deadline__gte=timezone.now().date())
+
+    result = active_adverts.filter(query)
+    paginator = Paginator(result, 10)  # Show 10 adverts per page
+    requested_page = request.GET.get('page')
+    paginated_adverts = paginator.get_page(requested_page)
+
+    context = {
+        "job_adverts": paginated_adverts,
+    }
+    return render(request, "home.html", context)

@@ -32,7 +32,7 @@
                     <td>{{ job.created_at }}</td>
                     <td>{{ job.deadline }}</td>
                     <td>
-                        {% if job.deadline >= current_date %}
+                        {% if job.deadline.date >= current_date %}
                         <span style="color: green;">Open</span>
                         {% else %}
                         <span style="color: red;">Closed</span>
@@ -40,7 +40,7 @@
                     </td>
                     <td>{{ job.total_applicants }}</td>
                     <td>
-                        <a href="" target="_blank">
+                        <a href="{% url 'advert_applications' job.id %}" target="_blank">
                             View applicants
                         </a>
                     </td>

@@ -10,33 +10,37 @@
 {% include 'header.html' %}
 
 <div class="search-container">
-    <form action="" method="GET" class="search-box">
+    <form action="{% url 'search' %}" method="GET" class="search-box">
         <input type="text" name="keyword" placeholder="title, company, description, skills">
         <input type="text" name="location" placeholder="location">
         <button type="submit">Search</button>
     </form>
 </div>
 
+{% if user.is_authenticated %}
 <section class="job-list">
-   
-        {% for advert in job_adverts %}
-            <div class="job-card">
-                <h3>{{advert.title}}</h3>
-                <p><strong>Company:</strong> {{advert.company_name}}</p>
-                <p><strong>Type:</strong> {{advert.job_type}}</p>
-                <p><strong>Posted:</strong> {{advert.created_at | naturalday | title}}</p>
-                <p><strong>Skills:</strong>{{advert.skills|truncatechars:14}}</p>
-                <a class="small-btn"  href="{% url 'get_advert' advert.id %}">View Details</a>
-
+    {% for advert in job_adverts %}
+        <div class="job-card">
+            <div class="job-card-header">
+                <h3 class="job-title">{{ advert.title }}</h3>
+                <span class="job-type-badge">{{ advert.job_type }}</span>
             </div>
 
-        {% empty %}
-            <div>
-                <p>No adverts available</p>
+            <p class="company-name"><strong>Company:</strong> {{ advert.company_name }}</p>
+            <p class="job-meta"><strong>Posted:</strong> {{ advert.created_at | naturalday | title }}</p>
+            <p class="job-description"><strong>Skills:</strong> {{ advert.skills|truncatechars:14 }}</p>
+
+            <div class="job-footer">
+                <a class="apply-button" href="{% url 'get_advert' advert.id %}">View Details</a>
             </div>
-            
-        {% endfor %}
+        </div>
+    {% empty %}
+        <div>
+            <p>No job adverts available</p>
+        </div>
+    {% endfor %}
 </section>
+
 
 <section>
     <div class="pagination">
@@ -59,7 +63,7 @@
         </div>
     </div>
 </section>
-
+{% endif %}
 
 {% endblock %}
 

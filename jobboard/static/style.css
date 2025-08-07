@@ -56,7 +56,7 @@ body {
 }
 
 .auth-header {
-  background-color: #C05063;
+  background-color: #1b75fd;
   color: #ffffff;
   padding: 15px;
   text-align: center;
@@ -94,7 +94,7 @@ body {
   width: calc(100% - 20px);
   margin: 0 auto 20px;
   padding: 10px;
-  background-color: #C05063;
+  background-color: #1b75fd;
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -104,7 +104,7 @@ body {
 }
 
 .btn:hover {
-  background-color: #7A2237
+  background-color: #9bbced
 }
 
 .small-btn {
@@ -115,8 +115,8 @@ body {
   text-align: center;
   text-decoration: none;
   color: #fff;
-  background-color: #9A2C47;
-  border: 1px solid #9A2C47;
+  background-color: #1b75fd;
+  border: 1px solid #1b75fd;
   border-radius: 0.2rem;
   cursor: pointer;
 }
@@ -126,10 +126,10 @@ body {
 
 .homepage-header {
   font-family: system-ui; 
-  background-image: url('header-image.jpeg');
+  background-image: url('header-image.png');
   background-repeat: no-repeat;
   background-size: cover;
-  color: #fff;
+  color: #1b75fd;
   font-size: large;                    
   background-position: center center;
   text-align: center;
@@ -140,24 +140,30 @@ body {
 .homepage-header-buttons {
   position: absolute;
   top: 20px;
+  left: 20px;
   right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.homepage-header-buttons a  {
+.left-button a,
+.right-buttons a {
   text-decoration: none;
   margin: 0 10px;
   padding: 10px 20px;
   color: white;
-  background-color: #9A2C47;
+  background-color: #1b75fd;
   border-radius: 5px;
   font-size: 14px;
   font-weight: bold;
-  
 }
 
-.homepage-header-buttons a:hover {
-  background-color: #7A2237;
+.left-button a:hover,
+.right-buttons a:hover {
+  background-color: #145bcc;
 }
+
 
 /* search */
 
@@ -181,7 +187,7 @@ body {
 
 .search-box button {
   padding: 10px 20px;
-  background-color: #9A2C47;
+  background-color: #1b75fd;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -193,39 +199,79 @@ body {
 
 .job-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 20px;
   padding: 20px;
   max-width: 1200px;
   margin: auto;
 }
 
 .job-card {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.job-card h3 {
-  margin: 0;
-  color: #9A2C47;
+.job-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.job-card p {
-  margin: 10px 0;
+.job-title {
+  font-size: 18px;
+  font-weight: 700;
   color: #333;
+  margin: 0;
 }
 
-.job-card button {
-  background-color: #9A2C47;
-  color: #fff;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.job-type-badge {
+  background-color: #00c28b;
+  color: white;
+  padding: 5px 12px;
+  font-size: 13px;
+  border-radius: 20px;
+  font-weight: 600;
+  white-space: nowrap;
 }
+
+.company-name {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.job-meta {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.job-description {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.job-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.apply-button {
+  background-color: #1b75fd;
+  color: white;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
 
 
 .detail-page {
@@ -255,7 +301,7 @@ body {
 }
 
 .job-detail h2 {
-  color: #9A2C47;
+  color: #1b75fd;
 }
 
 .job-detail p {
@@ -277,7 +323,7 @@ body {
 
 
 .application-form h3 {
-  color: #9A2C47;
+  color: #1b75fd;
   margin-bottom: 15px;
 }
 
@@ -296,7 +342,7 @@ body {
 .application-form .btn {
   width: 100%;
   padding: 10px;
-  background-color: #9A2C47;
+  background-color: #1b75fd;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -305,7 +351,7 @@ body {
 }
 
 .application-form .btn:hover {
-  background-color: #7A2237;
+  background-color: #1b75fd;
 }
 
 
@@ -529,4 +575,59 @@ body {
     padding: 8px;
     font-size: 14px;
   }
+}
+
+/* Sticky footer layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrap {
+  flex: 1;
+}
+
+/* Footer styles */
+.site-footer {
+  margin-top: 40px;
+  padding: 20px 40px;
+  background-color: #0a3c78;
+  color: white;
+  font-size: 14px;
+  border-top: 3px solid #1b75fd;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  margin: 5px 10px;
+  color: #d0e6ff;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-credit {
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.85;
 }
