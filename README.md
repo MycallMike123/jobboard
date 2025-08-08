@@ -59,12 +59,6 @@ python manage.py runserver
 
 Visit: `http://127.0.0.1:8000/` in your browser.
 
-## 🚧 Challenges Already Identified
-
-- Configuring deployment on Render.com.
-- Managing static files in production.
-- Planning and implementing authentication (future feature).
-
 ## 📅 Work Schedule (3 Weeks - Trello)
 
 | Week | Task |
